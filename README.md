@@ -1,2 +1,2 @@
 # OOP
-# Ilya Pastushkov 13151 MMD NSU
+## Ilya Pastushkov 13151 MMD NSU
