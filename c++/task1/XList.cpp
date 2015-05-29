@@ -45,10 +45,9 @@ template <typename Data>
 template <typename Data>
     void XList <Data>::add_to_end(Data d){
         Node *pv = new Node(d);
-        if (this->check()) {
-            cout << pv;
-            //pend = pv;
-            //pbeg = pv;
+        if (this->check() == 1) {\
+            pend = pv;
+            pbeg = pv;
         }
         else {
             pv->prev = pend;
@@ -58,28 +57,29 @@ template <typename Data>
 
 template <typename Data>
     void XList <Data>::rm_first(){
-        if (this->check()) return;
+        if (this->check() == 1) return;
         else {
             Node *pv = pbeg;
-            pbeg = pbeg->next;
-            delete pv;
+            delete pbeg->d;
+            pbeg = pv->next;
+
     }
 }
 
 template <typename Data>
     void XList <Data>::rm_last(){
-        if (this->check()) return;
+        if (this->check() == 1) return;
         else {
             Node *pv = pend;
-            pend = pend->prev;
-            delete pv;
-    }
+            delete pend->d;
+            pend = pv->prev;
+        }
 }
 
 template <typename Data>
     void XList <Data>::add_to_begin(Data d){
         Node *pv = new Node(d);
-        if (this->check()) pend = pbeg = pv;
+        if (this->check() == 1) pend = pbeg = pv;
         else {
             pv->next = pbeg;
             pbeg->prev = pv;
@@ -89,36 +89,39 @@ template <typename Data>
 template <typename Data>
     bool XList <Data>::check() const {
         if (this->pbeg == 0) return true;
+        //Node *pv = pbeg;
+        //if (pv->next == pv) return true;
         else return false;
     }
 
 template <typename Data>
     void XList <Data>::print() const {
         Node *pv = pbeg;
-        cout << endl << "list: ";
+        //cout << endl << "list: ";
         while(pv){
-            cout << pv->d << "    ";
+            //cout << pv->d << "    ";
+            pv->d->get_info();
             pv = pv->next;
         }
-        cout << endl;
+        //cout << endl;
     }
+
  
 template <typename Data>
-     void XList <Data>::clear(){
-        if (this->check()) return;
-        else {
-            Node *pv = pbeg;
-            while(pv){
-                delete pv;
-                pv = pv->next;
-            }
+void XList <Data>::clear() {
+    if (this->check() == 1 ) return;
+    else {
+        while(this->check() == 0 )
+        {
+            rm_first();
         }
     }
+}
 
 template <typename Data>
      int XList <Data>::count() const {
         int i = 0;
-        if (this->check()) return i;
+        if (this->check() == 1) return i;
         else {
             Node *pv = pbeg;
             while(pv){

@@ -4,31 +4,31 @@
 #include "Factory.cpp"
 using namespace std;
 
-
-
 int main() {
-    static const size_t count = 2;
-    cout << to_string(3.4);
+    static const size_t count = 5;
     ConcreteCreatorPoints CreatorPoint;
     ConcreteCreatorCircle CreatorCircle;
     ConcreteCreatorRect CreatorRect;
-    Creator*creators[count] = {&CreatorPoint, &CreatorCircle};
-    for(size_t i = 0; i<count; i++) {
-        Shape *product = creators[i]->factoryMethod();
-        product->get_info();
-        delete product;
+    ConcreteCreatorPolyline CreatorPolyline;
+    ConcreteCreatorPolygon CreatorPolygon;
+    Creator * creators[count] = {&CreatorPoint, &CreatorCircle, &CreatorRect, &CreatorPolyline, &CreatorPolygon };
+    XList<Shape *> * list_fo_figures = new XList<Shape *>;
+    //1
+    for(size_t i = 0; i<20; i++) {
+        Shape *product = creators[rand()%count]->factoryMethod();
+        list_fo_figures->add_to_begin(product);
     }
-    /*
-    static const size_t count = 2;
-    ConcreteCreatorPoints CreatorA;
-    ConcreteCreatorPolyline CreatorB;
-    // An array of creators
-    Creator*creators[count] = {&CreatorA, &CreatorB};
-    // Iterate over creators and create products
+    //2
+    cout << Shape::get_count()<< endl;
+    //3
     for(size_t i = 0; i<count; i++) {
-        Shape *product = creators[i]->factoryMethod();
-        cout << product->getName() << endl;
-        delete product;
+        creators[i]->print_info();
     }
-  return 0;*/
+    //4
+    list_fo_figures->print();
+    //list_fo_figures->print();
+    //5
+    list_fo_figures->clear();
+    cout << Shape::get_count() << endl;
+    return 0;
 }

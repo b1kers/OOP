@@ -29,10 +29,11 @@ class Shape: public  Named
 {
 protected:
     static int quantity;
+
 public:
     static int get_count();
     Shape(const char * name) : Named(name){ ++quantity;};
-    ~Shape();
+    virtual ~Shape();
     virtual void get_info() = 0;
 };
 
